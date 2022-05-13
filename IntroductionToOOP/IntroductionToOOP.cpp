@@ -22,11 +22,11 @@ public:
 	{
 		this->y = y;
 	}
-	double distance(Point dot)
+	double distance(Point other)
 	{
-		double x_distance = dot.x - this->x;
-		double y_distance = dot.y - this->y;
-		double distance = x_distance * x_distance + y_distance * y_distance;
+		double x_distance = other.x - this->x;
+		double y_distance = other.y - this->y;
+		double distance = sqrt(x_distance * x_distance + y_distance * y_distance);
 		return distance;
 	}
 };
@@ -73,6 +73,6 @@ double distance(Point A, Point B)
 {
 	double x_distance = A.get_x() - B.get_x();
 	double y_distance = A.get_y() - B.get_y();
-	double distance = x_distance * x_distance + y_distance * y_distance;
+	double distance = sqrt(x_distance * x_distance + y_distance * y_distance);
 	return distance;
 }
