@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 class Point
@@ -31,8 +31,8 @@ void main()
 	setlocale(LC_ALL, "");
 #ifdef STRUCT_POINT
 	//type name;
-	int a; // обьявление переменной а типа 'int'
-	Point A;//обьявления переменной A типа 'Point' 
+	int a; // РѕР±СЊСЏРІР»РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ Р° С‚РёРїР° 'int'
+	Point A;//РѕР±СЊСЏРІР»РµРЅРёСЏ РїРµСЂРµРјРµРЅРЅРѕР№ A С‚РёРїР° 'Point' 
 	A.x = 2;
 	A.y = 3;
 	cout << A.x << "\t" << A.y << endl;
@@ -47,7 +47,7 @@ void main()
 
 	Point A;
 	double x = 2, y = 3;
-	cout << "Введите координаты точки: "; cin >> x >> y;
+	cout << "Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ С‚РѕС‡РєРё: "; cin >> x >> y;
 	A.set_x(2);
 	A.set_y(3);
 	cout << A.get_x() << "\t" << A.get_y() << endl;
