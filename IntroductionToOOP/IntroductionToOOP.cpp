@@ -54,7 +54,7 @@ public:
 		cout << "Destructor:\t" << this << endl;
 	}
 		//			Operators:
-	Point operator=(const Point& other)
+	Point& operator=(const Point& other)
 	{
 		this->x = other.x;
 		this->y = other.y;
@@ -62,12 +62,27 @@ public:
 		return *this;
 	}
 
+	Point& operator++()
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int)
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
+	}
+
+
 	//			Methods
 	double distance(const Point& other)
 	{
 		double x_distance = this->x - other.x;
 		double y_distance = this->y - other.y;
-		double distance = sqrt(x_distance * x_distance + y_distance * y_distance);
+		double distance = sqrt (x_distance * x_distance + y_distance * y_distance);
 		return distance;
 	}
 	void print()const
@@ -77,12 +92,14 @@ public:
 };
 
 double distance(const Point& A, const Point& B);
+double operator-(const Point& left, const Point& right);
+Point operator+(const Point& left, const Point& right);
 
 //#define STRUCT_POINT
 //#define DISTANC
 //#define CONSTRUCTORS_CHECK
 //#define ASSIGNMENT_CHECK_1
-#define ASSIGNMENT_CHECK_2
+//#define ASSIGNMENT_CHECK_2
 
 void main()
 {
@@ -154,13 +171,48 @@ void main()
 	C = B;
 #endif // ASSIGNMENT_CHECK_1
 
+#ifdef ASSIGNMENT_CHECK_2
 	int a, b, c;
 	a = b = c = 0;
 	cout << a << "\t" << b << "\t" << c << endl;
 
 	Point A, B, C;
+	cout << delimiter << endl;
 	A = B = C = Point(2, 3);
+	cout << delimiter << endl;
 	A.print();
+#endif // ASSIGNMENT_CHECK_2
+
+	int a = 2;
+	int b = 3;
+	int c = a + b;
+
+	Point A(2, 3);
+	Point B(7, 8);
+	A.print();
+	B.print();
+
+	Point C = A + B;
+	C.print();
+
+	++C;
+	C.print();
+
+	Point D = C++;
+	C.print();
+	D.print();
+
+	
+	cout << A - B << endl; //не явный вызов оператора
+	cout << operator-(A, B) << endl;//явный вызов оператора
+}
+
+Point operator+(const Point& left, const Point& right)
+{
+	Point result;
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+	return result;
 }
 
 double distance(const Point& A, const Point& B)
@@ -169,4 +221,12 @@ double distance(const Point& A, const Point& B)
 	double y_distance = A.get_y() - B.get_y();
 	double distance = sqrt(x_distance * x_distance + y_distance * y_distance);
 	return distance;
+}
+
+double operator-(const Point& left, const Point& right)
+{
+	double x_distance = left.get_x() - right.get_x();
+	double y_distance = left.get_y() - right.get_y();
+	return sqrt(x_distance * x_distance + y_distance * y_distance);
+	//return sqrt(pow(left.get_x()-right.get_x(),2)+pow(left.get_y()-right.get_y()))
 }
