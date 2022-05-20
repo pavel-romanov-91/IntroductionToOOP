@@ -40,7 +40,7 @@ public:
 		this->integer = 0;
 		this->numerator = 0;
 		this->denominator = 1;
-		cout << "óäîëåíèåConstructors:\t" << this << endl;
+		cout << "DefolConstructors:\t" << this << endl;
 	}
 	Fraction(int integer)
 	{
