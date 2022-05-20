@@ -49,7 +49,14 @@ public:
 		this->denominator = 1;
 		cout << "Constructor 1 параметр:" << this << endl;
 	}
-	Fraction(int numera)*/
+	Fraction(int numerator, int denominator)
+	{
+		this->integer = 0;
+		this->numerator = numerator;
+		set_denominator(denominator);
+		cout << "Constructor:\t\t" << this << endl;
+	}
+	*/
 
 	Fraction(int integer = 0, int numerator = 0, int denominator = 1)
 	{
