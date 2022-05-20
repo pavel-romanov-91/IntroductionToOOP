@@ -47,7 +47,7 @@ public:
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
-		cout << "Constructor 1 параметыр:" << this << endl;
+		cout << "Constructor 1 параметр:" << this << endl;
 	}
 	Fraction(int numera)*/
 
