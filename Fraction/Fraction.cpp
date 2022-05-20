@@ -65,11 +65,35 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor: \t" << this << endl;
 	}
+
+	//			Operators
+
+	Fraction& operator=(const Fraction& other)
+	{
+		this->integer = other.integer;
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		cout << "CopyAssigment:\t" << this << endl;
+		return *this;
+	}
 	~Fraction()
 	{
 		cout << "Destructor\t" << this << endl;
 	}
 	//			Method
+
+	void to_proper()
+	{
+		//переводит дробь в правильную
+		integer += numerator / denominator;
+		numerator %= denominator;
+	}
+	void to_improper()
+	{
+		//певодить дробь в неправильную
+		numerator += integer * denominator;
+		integer = 0;
+	}
 
 	void print()const
 	{
@@ -85,15 +109,63 @@ public:
 	}
 };
 
+Fraction operator*(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	/*Fraction result;
+	result.set_numerator(left.get_numerator() * right.get_numerator());
+	result.set_denominator(left.get_denominator() * right.get_denominator());*/
+	/*Fraction result
+	(
+		left.get_numerator() * right.get_numerator(),
+		left.get_denominator()*right.get_denominator()
+	);
+	result.to_proper();
+	return result;*/
+	return Fraction
+	(
+		left.get_numerator() * right.get_numerator(),
+		left.get_denominator() * right.get_denominator()
+	);
+}
+
+//#define CONSTRUCTOR_CHEC
+
+
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef CONSTRUCTOR_CHEC
 	Fraction A;
 	A.print();
+
 	Fraction B = 5;
 	B.print();
+
 	Fraction C(1, 2);
 	C.print();
+
 	Fraction D(2, 3, 4);
 	D.print();
+
+	Fraction E = C;
+	E.print();
+
+	A = D;
+	A.print();
+#endif // CONSTRUCTOR_CHEC
+
+	Fraction A(2, 3, 4);
+	Fraction B(19, 5);
+	A.print();
+	B.print();
+	
+	int a = 2;
+	int b = 3;
+	int c = a * b;
+
+	Fraction C = A * B;
+	C.print();
+	
 }
