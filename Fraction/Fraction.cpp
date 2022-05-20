@@ -35,7 +35,7 @@ public:
 
 	//				Constructors
 
-	/*Fraction()
+	Fraction()
 	{
 		this->integer = 0;
 		this->numerator = 0;
@@ -47,7 +47,7 @@ public:
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
-		cout << "Constructor 1 параметр:" << this << endl;
+		cout << "1argConstructor:" << this << endl;
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -56,9 +56,9 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor:\t\t" << this << endl;
 	}
-	*/
+	
 
-	Fraction(int integer = 0, int numerator = 0, int denominator = 1)
+	Fraction(int integer, int numerator, int denominator)
 	{
 		this->integer = integer;
 		this->numerator = numerator;
@@ -71,9 +71,9 @@ public:
 	}
 	//			Method
 
-	void print()
+	void print()const
 	{
-		if (integer)cout << integer;
+		if (integer) cout << integer;
 		if (numerator)
 		{
 			if (integer)cout << "(";
@@ -87,10 +87,13 @@ public:
 
 void main()
 {
+	setlocale(LC_ALL, "");
 	Fraction A;
 	A.print();
-	Fraction B = 3;
+	Fraction B = 5;
 	B.print();
 	Fraction C(1, 2);
 	C.print();
+	Fraction D(2, 3, 4);
+	D.print();
 }
