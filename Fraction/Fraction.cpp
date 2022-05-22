@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 #define delimiter "\n--------------------------------\n"
@@ -112,14 +112,14 @@ public:
 
 	Fraction& to_proper()
 	{
-		//Выделяет из неправильной дроби целую часть
+		//Р’С‹РґРµР»СЏРµС‚ РёР· РЅРµРїСЂР°РІРёР»СЊРЅРѕР№ РґСЂРѕР±Рё С†РµР»СѓСЋ С‡Р°СЃС‚СЊ
 		integer += numerator / denominator;
 		numerator %= denominator;
 		return *this;
 	}
 	Fraction& to_improper()
 	{
-		//Целую часть интергрирует в числитель
+		//Р¦РµР»СѓСЋ С‡Р°СЃС‚СЊ РёРЅС‚РµСЂРіСЂРёСЂСѓРµС‚ РІ С‡РёСЃР»РёС‚РµР»СЊ
 		numerator += integer * denominator;
 		integer = 0;
 		return *this;
