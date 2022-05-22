@@ -1,11 +1,19 @@
 #include<iostream>
 using namespace std;
 
+#define delimiter "\n--------------------------------\n"
+
+class Fraction;
+Fraction operator*(Fraction left, Fraction right);
+Fraction operator/(Fraction left, Fraction right);
+Fraction operator+(Fraction left, Fraction right);
+Fraction operator-(Fraction left, Fraction right);
+
 class Fraction
 {
-	int integer;	//целая часть
-	int numerator;	//числитель
-	int denominator;	//знаменатель
+	int integer;	
+	int numerator;	
+	int denominator;	
 public:
 	int get_integer()const
 	{
@@ -56,7 +64,7 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor:\t\t" << this << endl;
 	}
-	
+
 
 	Fraction(int integer, int numerator, int denominator)
 	{
@@ -80,20 +88,52 @@ public:
 	{
 		cout << "Destructor\t" << this << endl;
 	}
+
+	Fraction& operator*=(const Fraction& other)
+	{
+		return *this = *this * other;
+	}
+	Fraction& operator/=(const Fraction& other)
+	{
+		return *this = *this / other;
+	}
+	Fraction& operator+=(const Fraction& other)
+	{
+		return *this = *this + other;
+	}
+	Fraction& operator-=(const Fraction& other)
+	{
+		return *this = *this - other;
+	}
+
+
 	//			Method
 
-	void to_proper()
+
+	Fraction& to_proper()
 	{
-		//переводит дробь в правильную
+		//Выделяет из неправильной дроби целую часть
 		integer += numerator / denominator;
 		numerator %= denominator;
+		return *this;
 	}
-	void to_improper()
+	Fraction& to_improper()
 	{
-		//певодить дробь в неправильную
+		//Целую часть интергрирует в числитель
 		numerator += integer * denominator;
 		integer = 0;
+		return *this;
 	}
+
+	Fraction& division()
+	{
+		to_improper();
+		int buffer = numerator;
+		numerator = denominator;
+		denominator = buffer;
+		return *this;
+	}
+
 
 	void print()const
 	{
@@ -130,8 +170,64 @@ Fraction operator*(Fraction left, Fraction right)
 	);
 }
 
-//#define CONSTRUCTOR_CHEC
+Fraction operator/(Fraction left, Fraction right)
+{
+	return left * right.division();
+}
 
+Fraction operator+(Fraction left, Fraction right)
+{
+	left.to_proper();
+	right.to_proper();
+	return Fraction
+	(
+		left.get_integer() + right.get_integer(),
+		left.get_numerator() * right.get_denominator() + right.get_numerator() * left.get_denominator(),
+		left.get_denominator() * right.get_denominator()
+	).to_proper();
+}
+
+Fraction operator-(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return Fraction
+	(left.get_numerator() * right.get_denominator() - right.get_numerator() * left.get_denominator(),
+		left.get_denominator() * right.get_denominator()
+	).to_proper();
+}
+
+bool operator==(Fraction left, Fraction right)
+{
+	return left.get_numerator() == right.get_numerator() &&
+		left.get_denominator() == right.get_denominator();
+}
+bool operator!=(const Fraction& left, const Fraction& right)
+{
+	return !(left == right);
+
+}
+bool operator>(Fraction left, Fraction right)
+{
+	return	left.to_improper().get_numerator() * right.get_denominator() >
+		right.to_improper().get_numerator() * left.get_denominator();
+}
+bool operator<(Fraction left, Fraction right)
+{
+
+	return	left.to_improper().get_numerator() * right.get_denominator() <
+		right.to_improper().get_numerator() * left.get_denominator();
+}
+bool operator<=(const Fraction& left, const Fraction& right)
+{
+	return !(left < right);
+}
+bool operator>=(const Fraction& left, const Fraction& right)
+{
+	return !(left > right);
+}
+
+//#define CONSTRUCTOR_CHEC
 
 void main()
 {
@@ -160,12 +256,32 @@ void main()
 	Fraction B(19, 5);
 	A.print();
 	B.print();
-	
+
 	int a = 2;
 	int b = 3;
 	int c = a * b;
 
 	Fraction C = A * B;
 	C.print();
-	
+
+	cout << delimiter << endl;
+	(A / B).print();
+	(A + B).print();
+	(A - B).print();
+	cout << delimiter << endl;
+	A *= B;
+	A.print();
+	A /= B;
+	A.print();
+	A += B;
+	A.print();
+	A -= B;
+	A.print();
+	cout << delimiter << endl;
+	cout << (A == B) << endl;
+	cout << (A != B) << endl;
+	cout << (A > B) << endl;
+	cout << (A < B) << endl;
+	cout << (A >= B) << endl;
+	cout << (A <= B) << endl;
 }
