@@ -224,6 +224,7 @@ bool operator>=(const Fraction& left, const Fraction& right)
 
 //#define CONSTRUCTOR_CHEC
 
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -259,6 +260,7 @@ void main()
 	Fraction C = A * B;
 	C.print();
 
+
 	cout << delimiter << endl;
 	(A / B).print();
 	(A + B).print();
@@ -279,4 +281,8 @@ void main()
 	cout << (A < B) << endl;
 	cout << (A >= B) << endl;
 	cout << (A <= B) << endl;
+
+
+	
+
 }
