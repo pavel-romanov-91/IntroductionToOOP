@@ -197,8 +197,7 @@ Fraction operator-(Fraction left, Fraction right)
 
 bool operator==(Fraction left, Fraction right)
 {
-	return left.get_numerator() == right.get_numerator() &&
-		left.get_denominator() == right.get_denominator();
+	return left.get_numerator() == right.get_numerator() &&	left.get_denominator() == right.get_denominator();
 }
 bool operator!=(const Fraction& left, const Fraction& right)
 {
@@ -207,14 +206,12 @@ bool operator!=(const Fraction& left, const Fraction& right)
 }
 bool operator>(Fraction left, Fraction right)
 {
-	return	left.to_improper().get_numerator() * right.get_denominator() >
-		right.to_improper().get_numerator() * left.get_denominator();
+	return	left.to_improper().get_numerator() * right.get_denominator() > right.to_improper().get_numerator() * left.get_denominator();
 }
 bool operator<(Fraction left, Fraction right)
 {
 
-	return	left.to_improper().get_numerator() * right.get_denominator() <
-		right.to_improper().get_numerator() * left.get_denominator();
+	return	left.to_improper().get_numerator() * right.get_denominator() < 	right.to_improper().get_numerator() * left.get_denominator();
 }
 bool operator<=(const Fraction& left, const Fraction& right)
 {
