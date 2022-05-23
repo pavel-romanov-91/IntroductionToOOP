@@ -109,7 +109,6 @@ public:
 
 	//			Method
 
-
 	Fraction& to_proper()
 	{
 		//Выделяет из неправильной дроби целую часть
@@ -133,7 +132,6 @@ public:
 		denominator = buffer;
 		return *this;
 	}
-
 
 	void print()const
 	{
