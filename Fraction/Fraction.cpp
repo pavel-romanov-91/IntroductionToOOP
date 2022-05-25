@@ -1,6 +1,7 @@
 ﻿#include<iostream>
 using namespace std;
 
+
 #define delimiter "\n--------------------------------\n"
 
 class Fraction;
@@ -62,7 +63,7 @@ public:
 		this->integer = 0;
 		this->numerator = numerator;
 		set_denominator(denominator);
-		cout << "Constructor:\t\t" << this << endl;
+		cout << "Constructor:\t" << this << endl;
 	}
 
 
@@ -106,6 +107,18 @@ public:
 		return *this = *this - other;
 	}
 
+	Fraction& operator++()
+	{
+		integer++;
+		return *this;
+	}
+	Fraction operator++(int)
+	{
+		Fraction old = *this;
+		integer++;
+		return old;
+	}
+
 
 	//			Method
 
@@ -124,13 +137,14 @@ public:
 		return *this;
 	}
 
-	Fraction& division()
+	Fraction& division()const
 	{
-		to_improper();
-		int buffer = numerator;
-		numerator = denominator;
-		denominator = buffer;
-		return *this;
+		Fraction division = *this;
+		division.to_improper();
+		int buffer = division.numerator;
+		division.numerator = division.denominator;
+		division.denominator = buffer;
+		return division;
 	}
 
 	void print()const
@@ -144,6 +158,18 @@ public:
 		}
 		else if (integer == 0)cout << 0;
 		cout << endl;
+	}
+	ostream& print(ostream& os)const
+	{
+		if (integer) cout << integer;
+		if (numerator)
+		{
+			if (integer)os << "(";
+			os << numerator << "/" << denominator;
+			if (integer)os << ")";
+		}
+		if (integer == 0 && numerator == 0)os << 0;
+		return os;
 	}
 };
 
@@ -222,8 +248,64 @@ bool operator>=(const Fraction& left, const Fraction& right)
 	return !(left > right);
 }
 
-//#define CONSTRUCTOR_CHEC
+ostream& operator << (ostream& os, const Fraction& obj)
+{
+	/*if (obj.get_integer()) os << obj.get_integer();
+	if (obj.get_numerator())
+	{
+		if (obj.get_integer())os << "(";
+		os << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer())os << ")";
+	}
+	if (obj.get_integer() == 0 && obj.get_numerator() == 0)os << 0;
+	return os;*/
+	return obj.print(os);
+}
 
+istream& operator>>(istream& is, Fraction& obj)
+{
+	int integer;
+	int numerator;
+	int denominator;
+	is >> integer >> numerator >> denominator;
+	obj.set_integer(integer);
+	obj.set_numerator(numerator);
+	obj.set_denominator(denominator);
+
+
+	/*const int SIZE = 256;
+	char bufer[SIZE] = {};
+	char delimiters[] = "() /";
+	is.getline(bufer, SIZE);
+	char* number[3] = {};
+	int i = 0;
+
+	for (char* pch = strtok(bufer, delimiters); pch; pch = strtok(NULL, delimiters))
+	{
+		number[i++] = pch;
+	}
+
+	char* pch = strtok(bufer, delimiters);
+	while (pch)
+	{
+		number[i++] = pch;
+		pch = strtok(NULL, delimiters);
+	}
+
+	for (int i = 0; i < i; i++)
+	{
+		cout << number[i] << "\t";
+	}
+	cout << endl;*/
+
+	return is;
+
+}
+
+//#define CONSTRUCTOR_CHEC
+//#define HOM_VORK_FRACTIN
+//#define ARITHMETICAL_OPERATORS_CHEC
+//#define INCRIMENT_CHECK
 
 void main()
 {
@@ -248,9 +330,10 @@ void main()
 	A.print();
 #endif // CONSTRUCTOR_CHEC
 
+#ifdef ARITHMETICAL_OPERATORS_CHEC
 	Fraction A(2, 3, 4);
 	Fraction B(19, 5);
-	A.print();
+	/*A.print();
 	B.print();
 
 	int a = 2;
@@ -259,8 +342,14 @@ void main()
 
 	Fraction C = A * B;
 	C.print();
+	(A / B).print();
+	(A + B).print();*/
+
+	A *= B;
+	A.print();
 
 
+#ifdef HOM_VORK_FRACTIN
 	cout << delimiter << endl;
 	(A / B).print();
 	(A + B).print();
@@ -281,8 +370,30 @@ void main()
 	cout << (A < B) << endl;
 	cout << (A >= B) << endl;
 	cout << (A <= B) << endl;
+#endif // HOM_VORK_FRACTIN
+#endif // ARITHMETICAL_OPERATORS_CHEC
 
+#ifdef INCRIMENT_CHECK
+	for (Fraction i(1, 2); i.get_integer() < 10; ++i)
+	{
+		i.print();
+	}
+#endif // INCRIMENT_CHECK
 
+	//cout << (Fraction(1, 1, 2) != Fraction(5, 10)) << endl;
 	
-
+	/*Fraction A(1, 2);
+	cout << A << endl;
+	A.print();*/
+	
+	//Проверочный код должен заработать :
+	Fraction A;
+	cout << "Введите простую дробь: ";
+	cin >> A;
+	cout << A << endl;
+	/*Варианты ввода :
+		1 / 2
+		5
+		2(3 / 4)
+		2 3 / 4*/
 }
