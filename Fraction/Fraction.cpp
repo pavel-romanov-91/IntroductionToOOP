@@ -59,7 +59,7 @@ public:
 		this->denominator = 1;
 		cout << "1argConstructor:" << this << endl;
 	}
-	explicit Fraction(double decimal)
+	Fraction(double decimal)
 	{
 		decimal += 1e-11;
 		integer = decimal;
@@ -129,6 +129,14 @@ public:
 		return old;
 	}
 
+	Fraction& operator()(int integer, int numerator, int denominator)
+	{
+		set_integer(integer);
+		set_numerator(numerator);
+		set_denominator(denominator);
+		return *this;
+	}
+
 	//			Type-cast operators
 	explicit operator int()const
 	{
@@ -187,9 +195,10 @@ public:
 			more = les;
 			les = rest;
 		} while (rest);
-		int DIV = more;
-		numerator /= DIV;
-		denominator /= DIV;
+		int GCD = more;
+		if (GCD == 0)return *this;
+		numerator /= GCD;
+		denominator /= GCD;
 		return *this;
 	}
 	void print()const
@@ -334,24 +343,20 @@ istream& operator>>(istream& is, Fraction& obj)
 		number[i++] = pch;
 		pch = strtok(NULL, delimiters);
 	}
-
+	obj = Fraction();
 	switch (i)
 	{
 	case 1: obj.set_integer(atoi(number[0])); break;
 	
 	case 2:
 		obj.set_numerator(atoi(number[0]));
-		obj.set_denominator(atoi(number[1]));
-		break;
+		obj.set_denominator(atoi(number[1])); break;
 	case 3:
 		obj.set_integer(atoi(number[0]));
 		obj.set_numerator(atoi(number[1]));
 		obj.set_denominator(atoi(number[2]));
 	}
-
-
 	return is;
-
 }
 
 //#define CONSTRUCTOR_CHEC
@@ -360,6 +365,7 @@ istream& operator>>(istream& is, Fraction& obj)
 //#define INCRIMENT_CHECK
 //#define HOM_WORK
 //#define COVERSIONS_FROM_OTHER_TO_CLASS
+//#define COVERSIONS_FROM_OTHER_TO_CLASS_TO_OTHER
 
 
 void main()
@@ -447,6 +453,13 @@ A.print();*/
 	cout << "Введите простую дробь: ";
 	cin >> A;
 	cout << A << endl;
+	cout << (double)A << endl;
+
+	/*A.set_integer(123);
+	A.set_numerator(55);
+	A.set_denominator(77);*/
+	A(123, 55, 77);
+	cout << A << endl;
 	/*Варианты ввода :
 		1 / 2
 		5
@@ -464,13 +477,18 @@ cout << A << endl;*/
 	cout << B << endl;
 #endif // COVERSIONS_FROM_OTHER_TO_CLASS
 
-	Fraction A = Fraction(2, 3, 4);
-	int a = (int) A;
-	cout << a << endl;
-	double b = A;
-	cout << b << endl;
-	cout << delimiter;
-	//Проверочный код должен заработать :
+#ifdef COVERSIONS_FROM_OTHER_TO_CLASS_TO_OTHER
+/*Fraction A = Fraction(2, 3, 4);
+int a = (int) A;
+cout << a << endl;
+double b = A;
+cout << b << endl;
+cout << delimiter;*/
+//Проверочный код должен заработать :
 	Fraction A = 2.75;
 	cout << A << endl;
+#endif // COVERSIONS_FROM_OTHER_TO_CLASS_TO_OTHER
+
+
+
 }
