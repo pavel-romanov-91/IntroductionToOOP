@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
 using namespace std;
 
 
@@ -51,12 +52,21 @@ public:
 		this->denominator = 1;
 		cout << "DefolConstructors:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
 		cout << "1argConstructor:" << this << endl;
+	}
+	explicit Fraction(double decimal)
+	{
+		decimal += 1e-11;
+		integer = decimal;
+		denominator = 1e+9;
+		decimal -= integer;
+		numerator = decimal * denominator;
+		translation();
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -119,6 +129,15 @@ public:
 		return old;
 	}
 
+	//			Type-cast operators
+	explicit operator int()const
+	{
+		return integer;
+	}
+	operator double()const
+	{
+		return integer + (double)numerator / denominator;
+	}
 
 	//			Method
 
@@ -147,6 +166,32 @@ public:
 		return division;
 	}
 
+	Fraction& translation()
+	{
+		if (numerator == 0)return *this;
+		int more, les;
+		int rest;
+		if (numerator > denominator)
+		{
+			more = numerator;
+			les = denominator;
+		}
+		else
+		{
+			les = numerator;
+			more = denominator;
+		}
+		do
+		{
+			rest = more % les;
+			more = les;
+			les = rest;
+		} while (rest);
+		int DIV = more;
+		numerator /= DIV;
+		denominator /= DIV;
+		return *this;
+	}
 	void print()const
 	{
 		if (integer) cout << integer;
@@ -264,27 +309,25 @@ ostream& operator << (ostream& os, const Fraction& obj)
 
 istream& operator>>(istream& is, Fraction& obj)
 {
-	int integer;
+	/*int integer;
 	int numerator;
 	int denominator;
 	is >> integer >> numerator >> denominator;
 	obj.set_integer(integer);
 	obj.set_numerator(numerator);
-	obj.set_denominator(denominator);
+	obj.set_denominator(denominator);*/
 
-
-	/*const int SIZE = 256;
+	const int SIZE = 256;
 	char bufer[SIZE] = {};
 	char delimiters[] = "() /";
 	is.getline(bufer, SIZE);
 	char* number[3] = {};
 	int i = 0;
-
 	for (char* pch = strtok(bufer, delimiters); pch; pch = strtok(NULL, delimiters))
 	{
 		number[i++] = pch;
 	}
-
+	
 	char* pch = strtok(bufer, delimiters);
 	while (pch)
 	{
@@ -292,11 +335,20 @@ istream& operator>>(istream& is, Fraction& obj)
 		pch = strtok(NULL, delimiters);
 	}
 
-	for (int i = 0; i < i; i++)
+	switch (i)
 	{
-		cout << number[i] << "\t";
+	case 1: obj.set_integer(atoi(number[0])); break;
+	
+	case 2:
+		obj.set_numerator(atoi(number[0]));
+		obj.set_denominator(atoi(number[1]));
+		break;
+	case 3:
+		obj.set_integer(atoi(number[0]));
+		obj.set_numerator(atoi(number[1]));
+		obj.set_denominator(atoi(number[2]));
 	}
-	cout << endl;*/
+
 
 	return is;
 
@@ -306,6 +358,9 @@ istream& operator>>(istream& is, Fraction& obj)
 //#define HOM_VORK_FRACTIN
 //#define ARITHMETICAL_OPERATORS_CHEC
 //#define INCRIMENT_CHECK
+//#define HOM_WORK
+//#define COVERSIONS_FROM_OTHER_TO_CLASS
+
 
 void main()
 {
@@ -380,13 +435,14 @@ void main()
 	}
 #endif // INCRIMENT_CHECK
 
+#ifdef HOM_WORK
 	//cout << (Fraction(1, 1, 2) != Fraction(5, 10)) << endl;
-	
-	/*Fraction A(1, 2);
-	cout << A << endl;
-	A.print();*/
-	
-	//Проверочный код должен заработать :
+
+/*Fraction A(1, 2);
+cout << A << endl;
+A.print();*/
+
+//Проверочный код должен заработать :
 	Fraction A;
 	cout << "Введите простую дробь: ";
 	cin >> A;
@@ -396,4 +452,25 @@ void main()
 		5
 		2(3 / 4)
 		2 3 / 4*/
+#endif // HOM_WORK
+
+#ifdef COVERSIONS_FROM_OTHER_TO_CLASS
+		/*Fraction A = 5;
+cout << A << endl;*/
+	Fraction B;
+	cout << delimiter;
+	B = Fraction(8);
+	cout << delimiter;
+	cout << B << endl;
+#endif // COVERSIONS_FROM_OTHER_TO_CLASS
+
+	Fraction A = Fraction(2, 3, 4);
+	int a = (int) A;
+	cout << a << endl;
+	double b = A;
+	cout << b << endl;
+	cout << delimiter;
+	//Проверочный код должен заработать :
+	Fraction A = 2.75;
+	cout << A << endl;
 }
