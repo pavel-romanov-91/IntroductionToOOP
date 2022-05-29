@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 using std::cin;
 using std::cout;
 using std::endl;
@@ -158,6 +158,6 @@ void main()
 	cout << delimiter;
 	cout << str5 << endl;
 	cout << delimiter;
-	cout << "Ââåäèòå ñòðîêó: "; cin >> str1;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚Ñ€Ð¾ÐºÑƒ: "; cin >> str1;
 	cout << str1 << endl;
 }
