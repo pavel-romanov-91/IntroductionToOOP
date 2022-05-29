@@ -2,6 +2,8 @@
 using std::cin;
 using std::cout;
 using std::endl;
+using std::ostream;
+using std::istream;
 
 #define delimiter "\n-------------------------------------------------\n"
 
@@ -116,11 +118,11 @@ String operator+(const String& left, const String& right)
 	return result;
 }
 
-std::ostream& operator<<(std::ostream& os, const String& obj)
+ostream& operator<<(ostream& os, const String& obj)
 {
 	return os << obj.get_str();
 }
-std::istream& operator>>(std::istream& is, String& obj)
+istream& operator>>(istream& is, String& obj)
 {
 	const int SIZE = 1024 * 1000;
 	char buffer[SIZE] = {};
@@ -129,7 +131,7 @@ std::istream& operator>>(std::istream& is, String& obj)
 	return is;
 }
 
-std::istream& getline(std::istream& is, String& obj)
+istream& getline(istream& is, String& obj)
 {
 	const int SIZE = 1024 * 1000;
 	char buffer[SIZE] = {};
