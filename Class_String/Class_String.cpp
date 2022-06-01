@@ -6,8 +6,6 @@ using std::endl;
 
 #define delimiter "\n-------------------------------\n";
 
-
-
 class String
 {
 	int size;
@@ -51,6 +49,15 @@ public:
 		}
 		cout << "CopyConstructor:" << this << endl;
 	}
+	String(String&& other)
+	{
+		//					MoveConstructor выполняет ShellowCopy (поверхностное копирование)
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveConstructor:" << this << endl;
+	}
 	~String()
 	{
 		delete[] this->str;
@@ -70,6 +77,16 @@ public:
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
+	String& operator=(String&& other)
+	{
+		delete[] this->str;
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveAssignment:\t" << this << endl;
 		return *this;
 	}
 	const char& operator[](int i)const
@@ -133,8 +150,12 @@ void main()
 #endif // CONSTRACTORS_CHEC
 
 	String str1 = "Hello";
+	cout << str1 << endl;
 	String str2 = ("World");
-	String str3 = str1 + " " + str2;
+	cout << str2 << endl;
+	//String str3 = str1 + " " + str2; //MoveConstructor
+	String str3;
+	str3 = str1 + str2;
 	//str3.print();
 	cout << str3 << endl;
 }

@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include<Windows.h>
 using namespace std;
 
 #define delimiter "\n-----------------------------------\n"
@@ -132,12 +133,16 @@ void main()
 	String str3 = str1 + " " + str2;
 	str3.print();
 	cout << delimiter << endl;
-	cout << "Введите строку: "; cin >> str1;
-	cout << str1 << endl;
-	cout << delimiter << endl;
 	//Перегрузить оператор +=
-	String str1 = "Hello";
-	String str2("World");
+	/*String str1 = "Hello";
+	String str2("World");*/
 	str1 += str2;
+	cout << str1 << endl;
+
+	cout << delimiter << endl;
+	cout << "Введите строку: "; 
+	SetConsoleCP(1251);
+	cin >> str1;
+	SetConsoleOutputCP(1251);
 	cout << str1 << endl;
 }
