@@ -1,11 +1,9 @@
-п»ї#include<iostream>
+#include<iostream>
 using namespace std;
-using std::cin;
-using std::cout;
-using std::endl;
 
-#define delimiter "\n-------------------------------\n";
-
+#define delimiter "\n-----------------------------------\n"
+class String;
+String operator+(const String& left, const String& right);
 
 
 class String
@@ -25,9 +23,7 @@ public:
 	{
 		return str;
 	}
-
-	//				Constructors:
-
+	//				Constructors
 	explicit String(int size = 80)
 	{
 		this->size = size;
@@ -44,7 +40,7 @@ public:
 	String(const String& other)
 	{
 		this->size = other.size;
-		this->str = new char[size]{};
+		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)
 		{
 			this->str[i] = other.str[i];
@@ -56,14 +52,9 @@ public:
 		delete[] this->str;
 		cout << "destructor:\t" << this << endl;
 	}
-
-	//				Operators:
-
+	//					Operators:
 	String& operator=(const String& other)
 	{
-		/*int a = 2;
-		int b = 3;
-		a = b;*/
 		if (this == &other)return *this;
 		delete[] this->str;
 		this->size = other.size;
@@ -71,6 +62,10 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
+	}
+	String& operator+=(const String& other)
+	{
+		return *this = *this + other;
 	}
 	const char& operator[](int i)const
 	{
@@ -80,31 +75,31 @@ public:
 	{
 		return str[i];
 	}
-
-	//				Methods:
-
+	//					Methods:
 	void print()const
 	{
 		cout << "Size:\t" << size << endl;
 		cout << "Str:\t" << str << endl;
 	}
 };
-
 String operator+(const String& left, const String& right)
 {
 	String cat(left.get_size() + right.get_size() - 1);
-	for (int i = 0; i < left.get_size(); i++)
-		//cat.get_str()[i] = left.get_str()[i];
-		cat[i] = left[i];
-	for (int i = 0; i < right.get_size(); i++)
-		//cat.get_str()[i + left.get_size() - 1] = right.get_str()[i];
-		cat[i + left.get_size() - 1] = right[i];
+	for (int i = 0; i < left.get_size(); i++)cat[i] = left[i];
+	for (int i = 0; i < right.get_size(); i++)cat[i + left.get_size() - 1] = right[i];
 	return cat;
 }
-
-std::ostream& operator<<(std::ostream& os, const String& obj)
+ostream& operator<<(ostream& os, const String& obj)
 {
 	return os << obj.get_str();
+}
+istream& operator>>(istream& is, String& obj)
+{
+	const int SIZE = 256;
+	char bufer[SIZE] = {};
+	is >> bufer;
+	obj = bufer;
+	return is;
 }
 
 //#define CONSTRACTORS_CHEC
@@ -135,6 +130,14 @@ void main()
 	String str1 = "Hello";
 	String str2 = ("World");
 	String str3 = str1 + " " + str2;
-	//str3.print();
-	cout << str3 << endl;
+	str3.print();
+	cout << delimiter << endl;
+	cout << "Введите строку: "; cin >> str1;
+	cout << str1 << endl;
+	cout << delimiter << endl;
+	//Перегрузить оператор +=
+	String str1 = "Hello";
+	String str2("World");
+	str1 += str2;
+	cout << str1 << endl;
 }
