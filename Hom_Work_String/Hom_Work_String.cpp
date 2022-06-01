@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 
 #define delimiter "\n-----------------------------------\n"
@@ -132,10 +132,10 @@ void main()
 	String str3 = str1 + " " + str2;
 	str3.print();
 	cout << delimiter << endl;
-	cout << "Ââåäèòå ñòðîêó: "; cin >> str1;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚Ñ€Ð¾ÐºÑƒ: "; cin >> str1;
 	cout << str1 << endl;
 	cout << delimiter << endl;
-	//Ïåðåãðóçèòü îïåðàòîð +=
+	//ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ +=
 	String str1 = "Hello";
 	String str2("World");
 	str1 += str2;
