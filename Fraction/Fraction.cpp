@@ -365,7 +365,7 @@ istream& operator>>(istream& is, Fraction& obj)
 //#define INCRIMENT_CHECK
 //#define HOM_WORK
 //#define COVERSIONS_FROM_OTHER_TO_CLASS
-//#define COVERSIONS_FROM_OTHER_TO_CLASS_TO_OTHER
+#define COVERSIONS_FROM_OTHER_TO_CLASS_TO_OTHER
 
 
 void main()
