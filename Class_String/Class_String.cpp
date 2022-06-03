@@ -125,6 +125,7 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 }
 
 //#define CONSTRACTORS_CHEC
+//#define MOV_METHODS_CHEC
 
 void main()
 {
@@ -149,6 +150,7 @@ void main()
 	str5.print();
 #endif // CONSTRACTORS_CHEC
 
+#ifdef MOV_METHODS_CHEC
 	String str1 = "Hello";
 	cout << str1 << endl;
 	String str2 = ("World");
@@ -158,4 +160,6 @@ void main()
 	str3 = str1 + str2;
 	//str3.print();
 	cout << str3 << endl;
+#endif // MOV_METHODS_CHEC
+
 }
