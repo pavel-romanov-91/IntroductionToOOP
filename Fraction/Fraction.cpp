@@ -45,18 +45,18 @@ public:
 
 	//				Constructors
 
-	Fraction()
+	Fraction() :integer(0), numerator(0), denominator(1)
 	{
-		this->integer = 0;
+		/*this->integer = 0;
 		this->numerator = 0;
-		this->denominator = 1;
+		this->denominator = 1;*/
 		cout << "DefolConstructors:\t" << this << endl;
 	}
-	explicit Fraction(int integer)
+	explicit Fraction(int integer) :integer(integer), numerator(0), denominator(1)
 	{
-		this->integer = integer;
+		/*this->integer = integer;
 		this->numerator = 0;
-		this->denominator = 1;
+		this->denominator = 1;*/
 		cout << "1argConstructor:" << this << endl;
 	}
 	Fraction(double decimal)
@@ -68,19 +68,19 @@ public:
 		numerator = decimal * denominator;
 		translation();
 	}
-	Fraction(int numerator, int denominator)
+	Fraction(int numerator, int denominator) :integer(0), numerator(numerator)
 	{
-		this->integer = 0;
-		this->numerator = numerator;
+		/*this->integer = 0;
+		this->numerator = numerator;*/
 		set_denominator(denominator);
 		cout << "Constructor:\t" << this << endl;
 	}
 
 
-	Fraction(int integer, int numerator, int denominator)
+	Fraction(int integer, int numerator, int denominator) :integer(integer), numerator(numerator)
 	{
-		this->integer = integer;
-		this->numerator = numerator;
+		/*this->integer = integer;
+		this->numerator = numerator;*/
 		set_denominator(denominator);
 		cout << "Constructor: \t" << this << endl;
 	}
@@ -359,13 +359,13 @@ istream& operator>>(istream& is, Fraction& obj)
 	return is;
 }
 
-//#define CONSTRUCTOR_CHEC
+#define CONSTRUCTOR_CHEC
 //#define HOM_VORK_FRACTIN
 //#define ARITHMETICAL_OPERATORS_CHEC
 //#define INCRIMENT_CHECK
 //#define HOM_WORK
 //#define COVERSIONS_FROM_OTHER_TO_CLASS
-#define COVERSIONS_FROM_OTHER_TO_CLASS_TO_OTHER
+//#define COVERSIONS_FROM_OTHER_TO_CLASS_TO_OTHER
 
 
 void main()
